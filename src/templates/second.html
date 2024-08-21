@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div id="blockTime">
+
+    <p id="interfaceClock"></p>
+
+    <button id="btnStart">Запуск</button>
+    <button id="btnStop">Стоп</button>
+    <button id="btnReset">Сбро</button>
+
+</div>
+
+
+
+
+<script>
+    let interfaceTime = {
+        hour: 0,
+        minute: 0,
+        second: 0,
+        currentTime: function (){
+            return `${interfaceTime.hour}:${interfaceTime.minute}:${interfaceTime.second}`
+        },
+        nextSecond: function (){
+            console.log(interfaceTime.second)
+            interfaceTime.second  += 1;
+            if (interfaceTime.second === 60){
+                interfaceTime.minute += 1;
+                interfaceTime.second = 0;
+                if (interfaceTime.minute === 60){
+                    interfaceTime.hour += 1;
+                    interfaceTime.minute = 0;
+                }
+            }
+            interfaceClock.innerText = interfaceTime.currentTime()
+        },
+        resetTime: function (){
+            interfaceTime.hour = 0;
+            interfaceTime.second = 0;
+            interfaceTime.minute = 0;
+        }
+
+    }
+    const interfaceClock = document.getElementById('interfaceClock');
+    interfaceClock.innerText = interfaceTime.currentTime();
+
+    /* btn block */
+    const btnStart = document.getElementById('btnStart');
+    btnStart.addEventListener('click', function (){
+        setInterval(interfaceTime.nextSecond, 1000)
+
+    })
+
+</script>
+</body>
+</html>
